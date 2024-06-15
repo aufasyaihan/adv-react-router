@@ -35,7 +35,7 @@ function App() {
       element: <Root />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <HomePage />,
         },
         {
