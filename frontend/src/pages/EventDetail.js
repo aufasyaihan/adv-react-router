@@ -11,20 +11,32 @@ import { Suspense } from "react";
 
 export default function EventDetailPage() {
   const { event, events } = useRouteLoaderData("event-detail");
+  const styles = {
+    backgroundColor: "var(--color-gray-900)",
+    width: "50%",
+    margin: "10px",
+    borderRadius: "10px",
+    overflow: "hidden",
+    height: "600px",
+  };
 
   return (
-    <>
-      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-        <Await resolve={event}>
-          {(loadedEvent) => <EventItem event={loadedEvent} />}
-        </Await>
-      </Suspense>
-      <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
-        <Await resolve={events}>
-          {(loadedEvents) => <EventsList events={loadedEvents} />}
-        </Await>
-      </Suspense>
-    </>
+    <div style={{ display: "flex", gap: "0.5rem" }}>
+      <div style={styles}>
+        <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+          <Await resolve={events}>
+            {(loadedEvents) => <EventsList events={loadedEvents} />}
+          </Await>
+        </Suspense>
+      </div>
+      <div style={styles}>
+        <Suspense fallback={<p style={{ textAlign: "center" }}>Loading...</p>}>
+          <Await resolve={event}>
+            {(loadedEvent) => <EventItem event={loadedEvent} />}
+          </Await>
+        </Suspense>
+      </div>
+    </div>
   );
 }
 
