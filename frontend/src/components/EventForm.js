@@ -1,5 +1,7 @@
 import {
   Form,
+  json,
+  redirect,
   useActionData,
   useNavigate,
   useNavigation,
@@ -75,3 +77,40 @@ function EventForm({ method, event }) {
 }
 
 export default EventForm;
+
+export async function action({ request, params }) {
+  const method = request.method;
+  const data = await request.formData();
+  
+  const eventData = {
+    title: data.get("title"),
+    description: data.get("description"),
+    date: data.get("date"),
+    image: data.get("image"),
+  };
+  
+  let url = "http://localhost:8080/events";
+  
+  if(method === "PATCH") {
+    const id = params.eventId;
+    url = "http://localhost:8080/events/" + id;
+  }
+
+  const response = await fetch(url, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(eventData),
+  });
+
+  if (response.status === 422) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json({ message: "Could not save event." }, { status: 500 });
+  } else {
+    return redirect("/events");
+  }
+}
