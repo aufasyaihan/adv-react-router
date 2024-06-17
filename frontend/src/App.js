@@ -1,7 +1,9 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/Home";
-import EventsPage, { loader } from "./pages/Events";
-import EventDetailPage from "./pages/EventDetail";
+import EventsPage, { loader as eventLoader } from "./pages/Events";
+import EventDetailPage, {
+  loader as eventDetailLoader,
+} from "./pages/EventDetail";
 import NewEventPage from "./pages/NewEvent";
 import EditEventPage from "./pages/EditEvent";
 import Root from "./pages/Root";
@@ -26,11 +28,12 @@ function App() {
             {
               index: true,
               element: <EventsPage />,
-              loader: () => loader(), // runs the function on page load
+              loader: eventLoader, // runs the function on page load
             },
             {
               path: ":eventId",
               element: <EventDetailPage />,
+              loader: eventDetailLoader,
             },
             {
               path: "new",
