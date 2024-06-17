@@ -28,5 +28,5 @@ async function loadEvent() {
 }
 
 export async function loader() {
-  return defer({ events: loadEvent() });
+  return defer({ events: loadEvent() }); // returns component even if data is not ready
 }
