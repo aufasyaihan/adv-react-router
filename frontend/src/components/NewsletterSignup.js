@@ -3,7 +3,7 @@ import classes from "./NewsletterSignup.module.css";
 import { useEffect } from "react";
 
 function NewsletterSignup() {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher(); // fetch without navigating to a another page
   const { data, state } = fetcher;
 
   useEffect(() => {
