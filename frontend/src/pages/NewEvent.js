@@ -2,7 +2,7 @@ import { json, redirect } from "react-router-dom";
 import EventForm from "../components/EventForm";
 
 export default function NewEventPage() {
-  return <EventForm />;
+  return <EventForm method={"POST"} />;
 }
 
 export async function action({ request, params }) {
